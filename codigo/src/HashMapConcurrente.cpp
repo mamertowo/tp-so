@@ -4,6 +4,7 @@
 #include <thread>
 #include <iostream>
 #include <fstream>
+#include <cctype>
 
 #include "HashMapConcurrente.hpp"
 
@@ -14,19 +15,38 @@ HashMapConcurrente::HashMapConcurrente() {
 }
 
 unsigned int HashMapConcurrente::hashIndex(std::string clave) {
-    return (unsigned int)(clave[0] - 'a');
+    return (unsigned int)(tolower(clave[0]) - 'a');         // Agregamos tolower
 }
 
 void HashMapConcurrente::incrementar(std::string clave) {
-    // Completar (Ejercicio 2)
+    int letra = hashIndex(clave);
+    for (hashMapPair &par : *tabla[letra]) {
+        if (par.first == clave) {
+            par.second++;
+            return;
+        }
+    }
+    tabla[letra]->insertar({clave, 1});
 }
 
 std::vector<std::string> HashMapConcurrente::claves() {
-    // Completar (Ejercicio 2)
+    std::vector<std::string> res;
+    for (int i = 0; i < HashMapConcurrente::cantLetras; i++) {
+        for (hashMapPair par : *tabla[i]) {
+            res.push_back(par.first);
+        }
+    }
+    return res;
 }
 
 unsigned int HashMapConcurrente::valor(std::string clave) {
-    // Completar (Ejercicio 2)
+    int letra = hashIndex(clave);
+    for (hashMapPair par : *tabla[letra]) {
+        if (par.first == clave) {
+            return par.second;
+        }
+    }
+    return 0;
 }
 
 float HashMapConcurrente::promedio() {
