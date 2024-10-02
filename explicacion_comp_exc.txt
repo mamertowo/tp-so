@@ -1,0 +1,11 @@
+1 2 3
+
+insert(4)						insert(5)
+	new.val = 4						
+	new.next = head (3)					
+	                                new.val = 4
+									new.next = head (3)
+									head = new				1 2 3 5
+	head == new.next?
+		5 != 3 -> new.next = 5
+		5 = 5 -> head = new      1 2 3 5 4

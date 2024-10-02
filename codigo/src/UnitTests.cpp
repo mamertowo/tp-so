@@ -160,7 +160,69 @@ LT_BEGIN_TEST(TestsEjercicio3, PromedioEsCorrecto)
     LT_CHECK_EQ(actual, 3);
 LT_END_TEST(PromedioEsCorrecto)
 
-// Completar TEST para caso concurrente
+
+LT_BEGIN_TEST(TestsEjercicio3, PromedioParalelo1Thread)
+    hM.incrementar("Heladera");
+    hM.incrementar("Heladera");
+    hM.incrementar("Heladera");
+    hM.incrementar("Heladera");
+    hM.incrementar("Microondas");
+    hM.incrementar("Microondas");
+
+    float actual = hM.promedioParalelo(1);
+    LT_CHECK_EQ(actual, 3);
+LT_END_TEST(PromedioParalelo1Thread)
+
+
+LT_BEGIN_TEST(TestsEjercicio3, PromedioParalelo5Threads)
+    hM.incrementar("Heladera");
+    hM.incrementar("Heladera");
+    hM.incrementar("Heladera");
+    hM.incrementar("Heladera");
+    hM.incrementar("Microondas");
+    hM.incrementar("Microondas");
+    hM.incrementar("Gaming");
+    hM.incrementar("Licuadora");
+    hM.incrementar("Licuadora");
+    hM.incrementar("AirFryer");
+    hM.incrementar("Tostadora");
+    hM.incrementar("Tostadora");
+    
+
+    float actual = hM.promedioParalelo(5);
+    LT_CHECK_EQ(actual, 2);
+LT_END_TEST(PromedioParalelo5Threads)
+
+
+LT_BEGIN_TEST(TestsEjercicio3, PromedioParalelo10Threads)
+    hM.incrementar("Heladera");
+    hM.incrementar("Heladera");
+    hM.incrementar("Heladera");
+    hM.incrementar("Heladera");
+    hM.incrementar("Microondas");
+    hM.incrementar("Microondas");
+    hM.incrementar("Gaming");
+    hM.incrementar("Gaming");
+    hM.incrementar("Gaming");
+    hM.incrementar("Licuadora");
+    hM.incrementar("Licuadora");
+    hM.incrementar("AirFryer");
+    hM.incrementar("Tostadora");
+    hM.incrementar("Tostadora");
+    hM.incrementar("Pymer");
+    hM.incrementar("Batidora");
+    hM.incrementar("Queso");
+    hM.incrementar("Queso");
+    hM.incrementar("Olla");
+    hM.incrementar("Naranja");
+    hM.incrementar("Naranja");
+    hM.incrementar("Cuchara");
+    hM.incrementar("Cuchara");
+    hM.incrementar("Cuchara");
+
+    float actual = hM.promedioParalelo(10);
+    LT_CHECK_EQ(actual, 2);
+LT_END_TEST(PromedioParalelo10Threads)
 
 LT_BEGIN_SUITE(TestsEjercicio4)
 

@@ -22,11 +22,14 @@ class HashMapConcurrente {
     unsigned int valor(std::string clave);
 
     float promedio();
+    float promedioParalelo(unsigned int cantThreads);
+          
 
 
  private:
     ListaAtomica<hashMapPair> *tabla[HashMapConcurrente::cantLetras];
-
+    std::mutex *bucketMtx[HashMapConcurrente::cantLetras];
+    
     static unsigned int hashIndex(std::string clave);
 };
 
