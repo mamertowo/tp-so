@@ -85,6 +85,7 @@ float HashMapConcurrente::promedioParalelo(unsigned int cantThreads) {
 
     std::thread threads[cantThreads];
     for (unsigned int i = 0; i < cantThreads; i++) {
+        // errores de creacion de thread
         threads[i] = std::thread([&sum, &mtxSum, &count, &nextLetra, *this] () {
             int letra;
             while ((letra = (nextLetra++)) < HashMapConcurrente::cantLetras) {

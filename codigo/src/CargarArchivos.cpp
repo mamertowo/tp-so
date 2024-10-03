@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+// Tuvimos que agregar thread, lo pide la consigna
+#include <thread>
 
 #include "CargarArchivos.hpp"
 
@@ -22,7 +24,7 @@ int cargarArchivo(
         return -1;
     }
     while (file >> palabraActual) {
-        // Completar (Ejercicio 4)
+        hashMap.incrementar(palabraActual);
         cant++;
     }
     // Cierro el archivo.
@@ -41,7 +43,18 @@ void cargarMultiplesArchivos(
     unsigned int cantThreads,
     std::vector<std::string> filePaths
 ) {
-    // Completar (Ejercicio 4)
+    std::atomic_int nextArchivo(0);
+
+    std::thread threads[cantThreads];
+    for (unsigned int i = 0; i < cantThreads; i++) {
+        threads[i] = std::thread([&nextArchivo, &filePaths, &hashMap] () {
+            int archivo;
+            while ((archivo = (nextArchivo++)) < (int)filePaths.size()) {
+                cargarArchivo(hashMap, filePaths[archivo]);
+            }
+        });
+    }
+    for (unsigned int i = 0; i < cantThreads; i++) threads[i].join();
 }
 
 #endif
