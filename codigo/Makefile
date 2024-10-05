@@ -6,6 +6,7 @@ BUILD_DIR = ./build
 
 TARGET = ContarPalabras
 TEST_TARGET = UnitTests
+TEST_CONCURRENT_TARGET = ConcurrenciaTests
 
 OBJECTS = HashMapConcurrente.o CargarArchivos.o
 
@@ -13,6 +14,9 @@ all: build $(BUILD_DIR)/$(TARGET)
 
 test: build $(BUILD_DIR)/$(TEST_TARGET)
 	$(BUILD_DIR)/$(TEST_TARGET)
+
+testc: build $(BUILD_DIR)/$(TEST_CONCURRENT_TARGET)
+	$(BUILD_DIR)/$(TEST_CONCURRENT_TARGET)
 
 $(BUILD_DIR)/%.o: src/%.cpp
 	@mkdir -p $(@D)
