@@ -21,15 +21,16 @@ unsigned int HashMapConcurrente::hashIndex(std::string clave) {
 
 void HashMapConcurrente::incrementar(std::string clave) {
     int letra = hashIndex(clave);
-    for (hashMapPair &par : *tabla[letra]) {        // No se rompen los iteradores
+    bucketMtx[letra]->lock();
+    for (hashMapPair &par : *tabla[letra]) {
         if (par.first == clave) {
-            bucketMtx[letra]->lock();
             par.second++;
             bucketMtx[letra]->unlock();
             return;
         }
     }
     tabla[letra]->insertar({clave, 1});
+    bucketMtx[letra]->unlock();
 }
 
 std::vector<std::string> HashMapConcurrente::claves() {

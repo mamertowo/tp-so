@@ -28,12 +28,15 @@ LT_BEGIN_TEST(TestsDeConcurrencia, muchasPalabras)
 LT_END_TEST(muchasPalabras)
 
 LT_BEGIN_TEST(TestsDeConcurrencia, muchasPalabrasMuchasVeces)
-    std::vector<std::string> corpuses(10000, "data/corpus");
-    cargarMultiplesArchivos(hM, 100, corpuses);
-    LT_CHECK_EQ(hM.valor("Freidora"), 910000);
-    LT_CHECK_EQ(hM.valor("Cargador"), 2100000);
-    LT_CHECK_EQ(std::round(hM.promedio()), std::round(1202524.0));
-    LT_CHECK_EQ(hM.promedio(), hM.promedioParalelo(10));
+    for (int i = 0; i < 10; i ++) {
+        hM = HashMapConcurrente();
+        std::vector<std::string> corpuses(10000, "data/corpus");
+        cargarMultiplesArchivos(hM, 100, corpuses);
+        LT_CHECK_EQ(hM.valor("Freidora"), 910000);
+        LT_CHECK_EQ(hM.valor("Cargador"), 2100000);
+        LT_CHECK_EQ(std::round(hM.promedio()), std::round(1202524.0));
+        LT_CHECK_EQ(hM.promedio(), hM.promedioParalelo(10));
+    }
 LT_END_TEST(muchasPalabrasMuchasVeces)
 
 LT_BEGIN_AUTO_TEST_ENV()
