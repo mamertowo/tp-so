@@ -77,11 +77,10 @@ float HashMapConcurrente::promedioParalelo(unsigned int cantThreads) {
     std::atomic_int count(0);
     std::atomic_int nextLetra(0);
     std::thread threads[cantThreads];
-    
+
     for (int i = 0; i < HashMapConcurrente::cantLetras; i++) bucketMtx[i]->lock();
 
     for (unsigned int i = 0; i < cantThreads; i++) {
-        // no checkeamos errores de creacion de thread para codigo mas claro
         threads[i] = std::thread([&sum, &mtxSum, &count, &nextLetra, *this] () {
             int letra;
             while ((letra = (nextLetra++)) < HashMapConcurrente::cantLetras) {
